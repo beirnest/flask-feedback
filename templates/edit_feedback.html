@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Feedback{% endblock %}
+
+{% block content%}
+<form id="edit-feedback-form">
+    {{ form.hidden_tag() }} <!--add type=hidden form fields -->
+  
+    {% for field in form
+           if field.widget.input_type != 'hidden' %}
+  
+      <p>
+        {{ field.label }}
+        {{ field(value_= feedback[field.name]) }}
+  
+        {% for error in field.errors %}
+          {{ error }}
+        {% endfor %}
+      </p>
+  
+    {% endfor %}
+  
+    <button formmethod="POST" type="submit">Submit</button>
+    <button formaction="/feedback/{{ feedback.id }}/delete" formmethod="POST">Delete</button>
+  </form>
+{% endblock %}
